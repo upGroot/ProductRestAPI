@@ -1,7 +1,7 @@
 package com.example.productrestapi;
 
-import com.example.productrestapi.Product;
-import com.example.productrestapi.ProductRespository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 public class ProductRestController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductRestController.class);
     @Autowired
     ProductRespository productRespository;
 
@@ -20,6 +21,7 @@ public class ProductRestController {
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
     public Product getProduct(@PathVariable(value = "id") int id){
+        LOGGER.info("Find product by ID:"+id);
         return productRespository.findById(id).get();
     }
 
